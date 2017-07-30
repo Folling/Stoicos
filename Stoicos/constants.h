@@ -1,14 +1,75 @@
 #ifndef STOICOS_CONSTANTS_H
 #define STOICOS_CONSTANTS_H
 
+#include <random>
+#include <conio.h>
+
+#define DEBUG
+
+// selfmade Assert funciton for debugging
+#ifndef DEBUG
+#define ASSERT(n)
+#else
+#define ASSERT(n) \
+if(!(n)){ \
+printf("%s - Failed\n", #n); \
+printf("In File %s \n", __FILE__); \
+printf("At Line %d\n", __LINE__); \
+_getch(); \
+}
+
+#endif
+
+// to add a piece of any bitboard on a square (G2 e.g.):
+// bitboard |= ADDPIECE(G2)
+// multiple pieces can be added with bitboard |= ADDPIECE(G2) | ADDPIECE(G3) ...
+
+#define ADDPIECE(n) (1ULL << sq120to64[n])
+
+#define EMPTY_BITBOARD 0ULL
+#define EMPTY_MASK 0ULL
+#define EMPTY_KEY 0ULL
+
+#define START_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+#define TEST1_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq - 0 1"
+#define TEST2_FET "rnbqkbnr/pppppppp/8/8/8/8/PPP1PPPP/RNBQKBNR w KQkq - 0 1"
+
+// sets a bit true or a bit false
+#define CLRBIT(bb, sq) ( bb &= clearMask[sq])
+#define SETBIT(bb, sq) ( bb |= setMask[sq])
+
+typedef unsigned long long QWORD;
+typedef QWORD Bitboard;
+typedef QWORD Mask;
+typedef QWORD Key;
+
+// GAME CONSTANTS
 const short amountSquares = 120;
+const short relevantSquares = 64;
 const short playerTypes = 3;
 const short uniquePlayerTypes = 2;
 const short pieceTypes = 13;
+const short maxOfOnePiece = 10;
+const short castleOptions = 16;
+extern std::random_device rd;
 
+// table containing the indexes as resulted by popBit 
+// in order to extract the popped bit's index
+const int BitTable[64] = {
+	63, 30,  3, 32, 25, 41, 22, 33,
+	15, 50, 42, 13, 11, 53, 19, 34,
+	61, 29,  2, 51, 21, 43, 45, 10,
+	18, 47,  1, 54,  9, 57,  0, 35,
+	62, 31, 40,  4, 49,  5, 52, 26,
+	60,  6, 23, 44, 46, 27, 56, 16,
+	 7, 39, 48, 24, 59, 14, 12, 55,
+	38, 28, 58, 20, 37, 17, 36,  8
+};
+
+// GAME SPECIFICATIONS
 enum file
 {
-	FILE_A, 
+	FILE_A,
 	FILE_B,
 	FILE_C,
 	FILE_D,
@@ -37,7 +98,7 @@ enum occupant
 {
 	EMPTY,
 	P,
-	N,	
+	N,
 	B,
 	R,
 	Q,
@@ -46,7 +107,8 @@ enum occupant
 	n,
 	b,
 	r,
-	q
+	q,
+	k
 };
 
 enum activePlayer
@@ -72,10 +134,10 @@ enum castlingPermission
 {
 	// whether you can castle queen or kingside
 
-	WHITE_KING_SIDE  = 1,
-	WHITE_QUEEN_SIDE = 2,
-	BLACK_KING_SIDE  = 4,
-	BLACK_QUEEN_SIDE = 8,
+	WHITE_00  = 1,
+	WHITE_000 = WHITE_00 << 1,
+	BLACK_00  = WHITE_00 << 2,
+	BLACK_000 = WHITE_00 << 3,
 };
 
 #endif

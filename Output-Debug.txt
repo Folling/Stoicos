@@ -1,0 +1,14 @@
+﻿'Stoicos.exe' (Win32): Loaded 'C:\Users\Folling\Documents\Visual Studio 2017\Projects\Stoicos\Debug\Stoicos.exe'. Symbols loaded.
+'Stoicos.exe' (Win32): Loaded 'C:\Windows\SysWOW64\ntdll.dll'. Cannot find or open the PDB file.
+'Stoicos.exe' (Win32): Loaded 'C:\Windows\SysWOW64\kernel32.dll'. Cannot find or open the PDB file.
+'Stoicos.exe' (Win32): Unloaded 'C:\Windows\SysWOW64\kernel32.dll'
+'Stoicos.exe' (Win32): Loaded 'C:\Windows\SysWOW64\kernel32.dll'. Cannot find or open the PDB file.
+'Stoicos.exe' (Win32): Loaded 'C:\Windows\SysWOW64\KernelBase.dll'. Cannot find or open the PDB file.
+'Stoicos.exe' (Win32): Loaded 'C:\Windows\SysWOW64\msvcp140d.dll'. Cannot find or open the PDB file.
+'Stoicos.exe' (Win32): Loaded 'C:\Windows\SysWOW64\vcruntime140d.dll'. Cannot find or open the PDB file.
+'Stoicos.exe' (Win32): Loaded 'C:\Windows\SysWOW64\ucrtbased.dll'. Cannot find or open the PDB file.
+The thread 0x7e74 has exited with code -1073741510 (0xc000013a).
+The thread 0x7e5c has exited with code -1073741510 (0xc000013a).
+The thread 0x16e8 has exited with code -1073741510 (0xc000013a).
+The thread 0x7e70 has exited with code -1073741510 (0xc000013a).
+The program '[5852] Stoicos.exe' has exited with code -1073741510 (0xc000013a).

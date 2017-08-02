@@ -13,12 +13,16 @@ QWORD castleKeys[castleOptions];
 
 std::random_device rd;
 
+int squareFiles[amountSquares];
+int squareRanks[amountSquares];
+
 void initAll()
 {
 	//mainGame.history.push_back(startingPosition);
 	init120to64();
 	initMasks();
 	initHashkeys();
+	initSquareIdentifiers();
 }
 
 void init120to64()
@@ -69,5 +73,23 @@ void initHashkeys()
 	for(int i = 0; i < castleOptions; i++)
 	{
 		castleKeys[i] = RAND64;
+	}
+}
+
+void initSquareIdentifiers()
+{
+	for(int i = 0; i < amountSquares; i++)
+	{
+		squareFiles[i] = OFF_BOARD;
+		squareRanks[i] = OFF_BOARD;
+	}
+	for(int r = RANK_1; r <= RANK_8; r++)
+	{
+		for(int f = FILE_A; f <= FILE_H; f++)
+		{
+			int sq = from64to120(f, r);
+			squareFiles[sq] = f;
+			squareRanks[sq] = r;
+		}
 	}
 }

@@ -111,17 +111,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="attack.cpp" />
     <ClCompile Include="bitboard.cpp" />
-    <ClCompile Include="hashkey.cpp" />
+    <ClCompile Include="move.cpp" />
     <ClCompile Include="position.cpp" />
     <ClCompile Include="convert.cpp" />
     <ClCompile Include="init.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="attack.h" />
     <ClInclude Include="bitboard.h" />
-    <ClInclude Include="hashkey.h" />
     <ClInclude Include="masks.h" />
+    <ClInclude Include="move.h" />
     <ClInclude Include="position.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="convert.h" />

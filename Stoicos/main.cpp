@@ -1,9 +1,11 @@
 #include <iostream>
 #include <iomanip>
 #include <conio.h>
+#include <chrono>
 
 #include "bitboard.h"
 #include "position.h"
+#include "attack.h"
 #include "init.h"
 
 void printConvertArrays();
@@ -11,14 +13,20 @@ void printConvertArrays();
 int main()
 {
 	initAll();
+
 	position blubb;
-	blubb.parseFEN(START_FEN);
-	std::cout << blubb.positionKey << std::endl;
-	position blobb;
-	blubb.parseFEN(TEST1_FEN);
-	std::cout << blubb.positionKey << std::endl;
-	blubb.parseFEN(START_FEN);
-	std::cout << blubb.positionKey << std::endl;
+
+	QWORD startingTime = _Query_perf_counter();
+
+	blubb.parseFEN("8/8/8/8/4K3/8/8/8 w - - 0 1");
+	blubb.checkBoard();
+	blubb.printPosition();
+
+
+	QWORD endingTime = _Query_perf_counter();
+	std::cout << "Time needed was : " << (endingTime - startingTime)*1000000.0 / _Query_perf_frequency()
+		      << " microseconds" << std::endl;
+
 	_getch();
 }
 

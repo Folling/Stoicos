@@ -1,12 +1,3 @@
 ﻿  main.cpp
-  Generating Code...
-  Compiling...
-  position.cpp
-c:\users\folling\documents\visual studio 2017\projects\stoicos\stoicos\position.cpp(30): warning C4018: '<': signed/unsigned mismatch
-  init.cpp
-  hashkey.cpp
-  convert.cpp
-  bitboard.cpp
-  Generating Code...
   Stoicos.vcxproj -> C:\Users\Folling\documents\visual studio 2017\Projects\Stoicos\Debug\Stoicos.exe
   Stoicos.vcxproj -> C:\Users\Folling\documents\visual studio 2017\Projects\Stoicos\Debug\Stoicos.pdb (Partial PDB)

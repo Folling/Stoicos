@@ -4,9 +4,18 @@
 #include <vector>
 #include <string>
 #include <stdlib.h>
-#include <assert.h>
+#include <iomanip>
 
 #include "constants.h"
+#include "bitboard.h"
+
+
+#define RAND64 	(QWORD)rd() | \
+			    ((QWORD)rd() << 32)
+
+extern Key pieceKeys[pieceTypes][relevantSquares];
+extern Key sideKey;
+extern Key castleKeys[castleOptions];
 
 struct pastMoves
 {
@@ -22,6 +31,11 @@ class position
 public:
 	void resetPosition();
 	void parseFEN(std::string FEN);
+	void generateKey();
+	void printPosition() const;
+	void updatePieceList();
+	// validates the board was setup correctly
+	bool checkBoard();
 	position();
 	~position();
 public:
@@ -54,21 +68,23 @@ public:
 
 	// unique key to save the position and load it
 	QWORD positionKey;
-	int amountPieces[pieceTypes];
+
+	// keeps track of the amount of pieces for each piece
+	int pieceNum[pieceTypes];
 
 	// necessary to be able to undo moves
 	std::vector<pastMoves> history;
 
 	// includes all non-pawns
-	short officiers[playerTypes];
+	int officers[uniquePlayerTypes];
 
 	// includes rooks and queens
-	short majors[playerTypes];
+	int majors[uniquePlayerTypes];
 
 	// includes bishops and knights
-	short minors[playerTypes];
-};
+	int minors[uniquePlayerTypes];
 
-extern position mainGame;
+	int material[uniquePlayerTypes];
+};
 
 #endif

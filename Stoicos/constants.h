@@ -4,6 +4,8 @@
 #include <random>
 #include <conio.h>
 
+#include "masks.h"
+
 #define DEBUG
 
 // selfmade Assert funciton for debugging
@@ -31,16 +33,12 @@ _getch(); \
 #define EMPTY_KEY 0ULL
 
 #define START_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
-#define TEST1_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq - 0 1"
-#define TEST2_FET "rnbqkbnr/pppppppp/8/8/8/8/PPP1PPPP/RNBQKBNR w KQkq - 0 1"
 
 // sets a bit true or a bit false
 #define CLRBIT(bb, sq) ( bb &= clearMask[sq])
 #define SETBIT(bb, sq) ( bb |= setMask[sq])
 
 typedef unsigned long long QWORD;
-typedef QWORD Bitboard;
-typedef QWORD Mask;
 typedef QWORD Key;
 
 // GAME CONSTANTS
@@ -52,6 +50,11 @@ const short pieceTypes = 13;
 const short maxOfOnePiece = 10;
 const short castleOptions = 16;
 extern std::random_device rd;
+
+const std::string pieceChars = ".PNBRQKpnbrqk";
+const std::string sideChars = "wb-";
+const std::string rankChars = "12345678";
+const std::string fileChars = "ABCDEFGH";
 
 // table containing the indexes as resulted by popBit 
 // in order to extract the popped bit's index
@@ -111,7 +114,7 @@ enum occupant
 	k
 };
 
-enum activePlayer
+enum Player
 {
 	WHITE,
 	BLACK,
@@ -139,5 +142,85 @@ enum castlingPermission
 	BLACK_00  = WHITE_00 << 2,
 	BLACK_000 = WHITE_00 << 3,
 };
+
+const bool officers[pieceTypes] = {
+	false,  // Empty
+	false,  // white Pawn
+	true,   // white Knight
+	true,   // white Bishop
+	true,   // white Rook
+	true,   // white Queen
+	true,   // white King
+	false,  // black Pawn
+	true,   // black Knight
+	true,   // black Bishop
+	true,   // black Rook
+	true,   // black Queen
+	true    // black King
+};
+
+const bool majPieces[pieceTypes] = {
+	false,   // Empty
+	false,   // white Pawn
+	false,   // white Knight
+	false,   // white Bishop
+	true,    // white Rook
+	true,    // white Queen
+	true,    // white King
+	false,   // black Pawn
+	false,   // black Knight
+	false,   // black Bishop
+	true,    // black Rook
+	true,    // black Queen
+	true     // black King
+};
+const bool minPieces[pieceTypes] = {
+	false,   // Empty
+	false,   // white Pawn
+	true,    // white Knight
+	true,    // white Bishop
+	false,   // white Rook
+	false,   // white Queen
+	false,   // white King
+	false,   // black Pawn
+	true,    // black Knight
+	true,    // black Bishop
+	false,   // black Rook
+	false,   // black Queen
+	false    // black King
+};
+const int pieceValues[pieceTypes] = {
+	    0,   // Empty
+	  100,   // white Pawn
+	  325,   // white Knight
+	  325,   // white Bishop
+	  550,   // white Rook
+	  950,   // white Queen
+	50000,   // white King
+	  100,   // black Pawn
+	  325,   // black Knight
+	  325,   // black Bishop
+	  550,   // black Rook
+	  950,   // black Queen
+	50000    // black King
+};
+const int pieceColours[pieceTypes] = {
+	BOTH,    // Empty
+	WHITE,   // white Pawn
+	WHITE,   // white Knight
+	WHITE,   // white Bishop
+	WHITE,   // white Rook
+	WHITE,   // white Queen
+	WHITE,   // white King
+	BLACK,   // black Pawn
+	BLACK,   // black Knight
+	BLACK,   // black Bishop
+	BLACK,   // black Rook
+	BLACK,   // black Queen
+	BLACK    // black King
+};
+
+extern int squareFiles[amountSquares];
+extern int squareRanks[amountSquares];
 
 #endif

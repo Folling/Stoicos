@@ -26,6 +26,10 @@ bool isKing(int piece)
 
 bool isSquareAttacked(const int square, const int side, const position* pos)
 {
+	ASSERT(sqOnBoard(square));
+	ASSERT(validSide(side));
+	ASSERT(pos->checkBoard());
+
 	// side is attacking side, not specifically current side
 
 	// checks whether a pawn is attacking the square

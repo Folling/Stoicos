@@ -56,6 +56,18 @@ const std::string sideChars = "wb-";
 const std::string rankChars = "12345678";
 const std::string fileChars = "ABCDEFGH";
 
+// value of specific move flags when evaluated with a move information
+
+const int mFlagEP = 0x40000;
+const int mFlagPS = 0x80000;
+const int mFlagCstl = 0x1000000;
+
+const int mFlagCptr = 0x7C000;
+const int mFlagProm = 0xF00000;
+
+const int pawnRange = 10;
+const int psRange = 20;
+
 // table containing the indexes as resulted by popBit 
 // in order to extract the popped bit's index
 const int BitTable[64] = {
@@ -144,19 +156,19 @@ enum castlingPermission
 };
 
 const bool officers[pieceTypes] = {
-	false,  // Empty
-	false,  // white Pawn
-	true,   // white Knight
-	true,   // white Bishop
-	true,   // white Rook
-	true,   // white Queen
-	true,   // white King
-	false,  // black Pawn
-	true,   // black Knight
-	true,   // black Bishop
-	true,   // black Rook
-	true,   // black Queen
-	true    // black King
+	false,   // Empty
+	false,   // white Pawn
+	true,    // white Knight
+	true,    // white Bishop
+	true,    // white Rook
+	true,    // white Queen
+	true,    // white King
+	false,   // black Pawn
+	true,    // black Knight
+	true,    // black Bishop
+	true,    // black Rook
+	true,    // black Queen
+	true     // black King
 };
 
 const bool majPieces[pieceTypes] = {
@@ -218,6 +230,22 @@ const int pieceColours[pieceTypes] = {
 	BLACK,   // black Rook
 	BLACK,   // black Queen
 	BLACK    // black King
+};
+
+const bool sliders[pieceTypes] = {
+	false,   // Empty
+	false,   // white Pawn
+	false,   // white Knight
+	true,    // white Bishop
+	true,    // white Rook
+	true,    // white Queen
+	false,   // white King
+	false,   // black Pawn
+	false,   // black Knight
+	true,    // black Bishop
+	true,    // black Rook
+	true,    // black Queen
+	false     // black King
 };
 
 extern int squareFiles[amountSquares];

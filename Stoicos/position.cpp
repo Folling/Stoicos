@@ -167,6 +167,7 @@ void position::resetPosition()
 		this->majors[i] = 0;
 		this->minors[i] = 0;
 		this->pawns[i] = 0ULL;
+		this->material[i] = 0;
 	}
 	for(int i = 0; i < pieceTypes; i++)
 	{
@@ -293,7 +294,7 @@ void position::updatePieceList()
 	}
 }
 
-bool position::checkBoard()
+bool position::checkBoard() const
 {
 	int t_pieceNum[13] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0 };
 	int t_officers[2] = { 0, 0 };
@@ -379,10 +380,10 @@ bool position::checkBoard()
 
 	ASSERT(this->side == WHITE || this->side == BLACK);
 
-	Key tempKey = this->positionKey;
-	this->generateKey();
+	position* temp = const_cast<position*>(this);
+	temp->generateKey();
 
-	ASSERT(tempKey == this->positionKey);
+	ASSERT(temp->positionKey == this->positionKey);
 
 	// en passent squares can only exist on the 6th or the 3rd rank, if at all
 	ASSERT(this->enPassentSquare == OFF_BOARD 

@@ -3,6 +3,7 @@
 
 #include "constants.h"
 #include "position.h"
+#include "validate.h"
 
 #define isBQ(pi) isBishopOrQueen(pi)
 #define isRQ(pi) isRookOrQueen(pi)

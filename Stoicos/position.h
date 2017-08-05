@@ -34,8 +34,9 @@ public:
 	void generateKey();
 	void printPosition() const;
 	void updatePieceList();
-	// validates the board was setup correctly
-	bool checkBoard();
+
+	// validates that the board was setup correctly
+	bool checkBoard() const;
 	position();
 	~position();
 public:

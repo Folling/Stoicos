@@ -1,3 +1,19 @@
-﻿  main.cpp
+﻿  position.cpp
+  movegen.cpp
+c:\users\folling\documents\visual studio 2017\projects\stoicos\stoicos\movegen.cpp(107): warning C4554: '<<': check operator precedence for possible error; use parentheses to clarify precedence
+c:\users\folling\documents\visual studio 2017\projects\stoicos\stoicos\movegen.cpp(123): warning C4554: '<<': check operator precedence for possible error; use parentheses to clarify precedence
+c:\users\folling\documents\visual studio 2017\projects\stoicos\stoicos\movegen.cpp(127): warning C4554: '<<': check operator precedence for possible error; use parentheses to clarify precedence
+c:\users\folling\documents\visual studio 2017\projects\stoicos\stoicos\movegen.cpp(146): warning C4554: '<<': check operator precedence for possible error; use parentheses to clarify precedence
+c:\users\folling\documents\visual studio 2017\projects\stoicos\stoicos\movegen.cpp(162): warning C4554: '<<': check operator precedence for possible error; use parentheses to clarify precedence
+c:\users\folling\documents\visual studio 2017\projects\stoicos\stoicos\movegen.cpp(166): warning C4554: '<<': check operator precedence for possible error; use parentheses to clarify precedence
+  main.cpp
+  Generating Code...
+  Compiling...
+  move.cpp
+  init.cpp
+  convert.cpp
+  bitboard.cpp
+  attack.cpp
+  Generating Code...
   Stoicos.vcxproj -> C:\Users\Folling\documents\visual studio 2017\Projects\Stoicos\Debug\Stoicos.exe
   Stoicos.vcxproj -> C:\Users\Folling\documents\visual studio 2017\Projects\Stoicos\Debug\Stoicos.pdb (Partial PDB)

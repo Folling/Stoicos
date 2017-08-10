@@ -40,14 +40,14 @@ bool isSquareAttacked(const int square, const int side, const position* pos)
 	{
 		if (pos->pieces[square + 11] == p || pos->pieces[square + 9] == p) return true;
 	}
-	for(int i = 0; i < knightDirs; i++)
+	for(int i = 0; i < pieceDirections[N]; i++)
 	{
-		int piece = pos->pieces[square + knightDir[i]];
+		int piece = pos->pieces[square + directions[N][i]];
 		if (isN(piece) && pieceColours[piece] == side) return true;
 	}
-	for(int i = 0; i < bishopDirs; i++)
+	for(int i = 0; i < pieceDirections[B]; i++)
 	{
-		int dir = bishopDir[i];
+		int dir = directions[B][i];
 		int t_square = square + dir;
 		int piece = pos->pieces[t_square];
 
@@ -64,9 +64,9 @@ bool isSquareAttacked(const int square, const int side, const position* pos)
 			piece = pos->pieces[t_square];
 		}
 	}
-	for (int i = 0; i < rookDirs; i++)
+	for (int i = 0; i < pieceDirections[R]; i++)
 	{
-		int dir = rookDir[i];
+		int dir = directions[R][i];
 		int t_square = square + dir;
 		int piece = pos->pieces[t_square];
 
@@ -83,9 +83,9 @@ bool isSquareAttacked(const int square, const int side, const position* pos)
 			piece = pos->pieces[t_square];
 		}
 	}
-	for (int i = 0; i < kingDirs; i++)
+	for (int i = 0; i < pieceDirections[K]; i++)
 	{
-		int piece = pos->pieces[square + kingDir[i]];
+		int piece = pos->pieces[square + directions[K][i]];
 		if (isK(piece) && pieceColours[piece] == side) return true;
 	}
 	return false;

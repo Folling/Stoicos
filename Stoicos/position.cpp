@@ -146,6 +146,26 @@ void position::parseFEN(std::string FEN)
 	}
 	else this->enPassentSquare = OFF_BOARD;
 
+	// since we don't know how much exactly we have to erase, we just track how much
+	// eraseCount starts as one as we always have to erase the ' ' inbetween
+	int eraseCount = 1;
+	while(FEN.at(eraseCount) != ' ') eraseCount++;
+	FEN.erase(0, eraseCount);
+
+	// used to extract fifty move count and ply count from FEN string
+	std::stringstream ss(FEN);
+
+	ss >> this->fiftyMoveCount;
+
+	eraseCount = 1;
+	while (FEN.at(eraseCount) != ' ') eraseCount++;
+	FEN.erase(0, eraseCount);
+
+	ss >> this->ply;
+
+	// not necessary but I like it this way, completely destroys FEN
+	FEN.erase();
+
 	this->generateKey();
 
 	this->updatePieceList();
@@ -153,6 +173,7 @@ void position::parseFEN(std::string FEN)
 
 void position::resetPosition()
 {
+	// basically sets everything to 0;
 	for(int i = 0; i < amountSquares; i++)
 	{
 		this->pieces[i] = OFF_BOARD;
@@ -161,13 +182,15 @@ void position::resetPosition()
 	{
 		this->pieces[sq64to120[i]] = EMPTY;
 	}
-	for(int i = 0; i < playerTypes; i++)
+	for(int i = 0; i < uniquePlayerTypes; i++)
 	{
 		this->officers[i] = 0;
 		this->majors[i] = 0;
 		this->minors[i] = 0;
-		this->pawns[i] = 0ULL;
 		this->material[i] = 0;
+	}
+	for(int i = 0; i < playerTypes; i++) {
+		this->pawns[i] = 0ULL;
 	}
 	for(int i = 0; i < pieceTypes; i++)
 	{

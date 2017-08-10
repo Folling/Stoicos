@@ -3,6 +3,7 @@
 
 #include <random>
 #include <conio.h>
+#include <thread>
 
 #include "masks.h"
 
@@ -35,6 +36,7 @@ _getch(); \
 #define START_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 
 // sets a bit true or a bit false
+// CAREFUL : square is in the 64 board format so use sq120to64
 #define CLRBIT(bb, sq) ( bb &= clearMask[sq])
 #define SETBIT(bb, sq) ( bb |= setMask[sq])
 
@@ -49,6 +51,10 @@ const short uniquePlayerTypes = 2;
 const short pieceTypes = 13;
 const short maxOfOnePiece = 10;
 const short castleOptions = 16;
+const short amountSliders = 3; // bishops + queens + rooks
+const short amountNonSliders = 2; // knights + kings
+const short nonPawnTypes = 5;
+const short maxDirections = 8;
 extern std::random_device rd;
 
 const std::string pieceChars = ".PNBRQKpnbrqk";
@@ -246,6 +252,38 @@ const bool sliders[pieceTypes] = {
 	true,    // black Rook
 	true,    // black Queen
 	false     // black King
+};
+
+const int directions[pieceTypes][maxDirections] = {
+	{   0,   0,   0,  0, 0,  0,  0,  0 }, // Empty
+	{   0,   0,   0,  0, 0,  0,  0,  0 }, // White Pawn
+	{ -21, -19, -12, -8, 8, 12, 19, 21 }, // White Knight
+	{ -11,  -9,   9, 11, 0,  0,  0,  0 }, // White Bishop
+	{ -10,  -1,   1, 10, 0,  0,  0,  0 }, // White Rook
+	{ -11, -10,  -9, -1, 1,  9, 10, 11 }, // White Queen
+	{ -11, -10,  -9, -1, 1,  9, 10, 11 }, // White King
+	{   0,   0,   0,  0, 0,  0,  0,  0 }, // Black Pawn
+	{ -21, -19, -12, -8, 8, 12, 19, 21 }, // Black Knight
+	{ -11,  -9,   9, 11, 0,  0,  0,  0 }, // Black Bishop
+	{ -10,  -1,   1, 10, 0,  0,  0,  0 }, // Black Rook
+	{ -11, -10,  -9, -1, 1,  9, 10, 11 }, // Black Queen
+	{ -11, -10,  -9, -1, 1,  9, 10, 11 }, // Black King
+};
+
+const int pieceDirections[pieceTypes] = {
+	0, // Empty
+	0, // White Pawn
+	8, // White Knight
+	4, // White Bishop
+	4, // White Rook
+	8, // White Queen
+	8, // White King
+	0, // Black Pawn
+	8, // Black Knight
+	4, // Black Bishop
+	4, // Black Rook
+	8, // Black Queen
+	8  // Black King
 };
 
 extern int squareFiles[amountSquares];

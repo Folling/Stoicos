@@ -113,6 +113,7 @@
   <ItemGroup>
     <ClCompile Include="attack.cpp" />
     <ClCompile Include="bitboard.cpp" />
+    <ClCompile Include="makemove.cpp" />
     <ClCompile Include="move.cpp" />
     <ClCompile Include="movegen.cpp" />
     <ClCompile Include="position.cpp" />
@@ -123,6 +124,7 @@
   <ItemGroup>
     <ClInclude Include="attack.h" />
     <ClInclude Include="bitboard.h" />
+    <ClInclude Include="makemove.h" />
     <ClInclude Include="masks.h" />
     <ClInclude Include="move.h" />
     <ClInclude Include="movegen.h" />

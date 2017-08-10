@@ -5,6 +5,7 @@
 #include <string>
 #include <stdlib.h>
 #include <iomanip>
+#include <sstream>
 
 #include "constants.h"
 #include "bitboard.h"

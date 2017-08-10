@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <conio.h>
+#include <string>
 #include <chrono>
 
 #include "bitboard.h"
@@ -15,31 +16,31 @@ void printMove(int move);
 
 int main()
 {
-	QWORD startingTime = _Query_perf_counter();
 	initAll();
-
 	position blubb;
 	moveList l;
 
-	blubb.parseFEN("rnbqkbnr/p1p1p3/3p3p/1p1p4/2P1Pp2/8/PP1P1PpP/RNBQKB1R b - e3 0 1");
+	QWORD startingTime = _Query_perf_counter();
+	blubb.parseFEN("r1b2rk1/pp3ppp/2nqpn2/8/3P4/P2BBN2/1P3PPP/2RQK2R b K - 0 1");
+	blubb.resetPosition();
+	blubb.parseFEN(START_FEN);
 	blubb.checkBoard();
 	blubb.printPosition();
-	std::cout << std::endl;
-
-	
+	_getch();
 
 	generateAllMoves(&blubb, &l);
-
-	
-	
 	printMoveList(&l);
+
 	QWORD endingTime = _Query_perf_counter();
-	std::cout << "Time needed was: " << (endingTime - startingTime)*1000000.0 / _Query_perf_frequency()
-		<< " microseconds" << std::endl;
+
+	std::cout << "Time needed was: " << QWORD((endingTime - startingTime)*1000.0 / _Query_perf_frequency())
+		<< " milliseconds" << std::endl;
 	_getch();
 }
 
 // redundant function for debugging
+// simply prints the arrays which store convert information about the
+// 120 to 64 board formats
 void printConvertArrays()
 {
 	for (int i = 0; i < amountSquares; i++)
@@ -57,6 +58,8 @@ void printConvertArrays()
 	}
 }
 
+// prints the information about a move
+// 27 because there are 27 relevant bits in the moveinfo
 void printMove(int move)
 {
 	for(int i = 27; i>=0; i--)

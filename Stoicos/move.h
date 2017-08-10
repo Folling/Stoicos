@@ -37,7 +37,7 @@
 #define CASTLING(m)   (m & mFlagCstl)
 
 // specifies the specifics of a move in a macro, could do this in a "makeMove(f,t,ca,pro,fl)" function but meh
-#define MOVE(f,t,cap,pro,flag) ( (f) | (t << 7) | (cap << 14) | (pro << 20) | (flag) )
+#define MOVE(f,t,cap,pro,flag) ( (f) | ((t) << 7) | ((cap) << 14) | ((pro) << 20) | (flag) )
 
 #define NOPROM 0
 #define NOFLAG 0

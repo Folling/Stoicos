@@ -27,6 +27,8 @@ struct pastMoves
 	QWORD positionKey;
 };
 
+const int maxGameMoves = 2048;
+
 class position
 {
 public:
@@ -75,7 +77,7 @@ public:
 	int pieceNum[pieceTypes];
 
 	// necessary to be able to undo moves
-	std::vector<pastMoves> history;
+	pastMoves history[maxGameMoves];
 
 	// includes all non-pawns
 	int officers[uniquePlayerTypes];

@@ -19,52 +19,48 @@ void printMoveList(const moveList* list) {
 	}
 }
 
-static void addQuietMove(int mInf, moveList* list) {
-	move t;
-	t.information = mInf;
-	t.score = 0;
-	list->moves.push_back(t);
+static void addQuietMove( int mInf, moveList* list ) {
+	list->moves[list->count].information = mInf;
+	list->moves[list->count].score = 0;
 	list->count++;
 } // TODO is this necessary?
 
-static void addCaptureMove(int mInf, moveList* list) {
-	move t;
-	t.information = mInf;
-	t.score = 0;
-	list->moves.push_back(t);
+static void addCaptureMove( int mInf, moveList* list ) {
+	list->moves[list->count].information = mInf;
+	list->moves[list->count].score = 0;
 	list->count++;
 }
 
-static void addWhitePawnMove(const int from, const int to, const int cap, moveList* list) {
+static void addWhitePawnMove( const int from, const int to, const int cap, moveList* list ) {
 
 	ASSERT(pieceValidEmpty(cap));
 	ASSERT(sqOnBoard(from));
 	ASSERT(sqOnBoard(to));
 
 	if (squareRanks[from] == RANK_7) {
-		addCaptureMove(MOVE(from, to, cap, Q, NOFLAG), list);
-		addCaptureMove(MOVE(from, to, cap, N, NOFLAG), list);
-		addCaptureMove(MOVE(from, to, cap, R, NOFLAG), list);
-		addCaptureMove(MOVE(from, to, cap, B, NOFLAG), list);
+		addCaptureMove( MOVE(from, to, cap, Q, NOFLAG), list );
+		addCaptureMove( MOVE(from, to, cap, N, NOFLAG), list );
+		addCaptureMove( MOVE(from, to, cap, R, NOFLAG), list );
+		addCaptureMove( MOVE(from, to, cap, B, NOFLAG), list );
 	}
 	else {
-		addCaptureMove(MOVE(from, to, cap, EMPTY, NOFLAG), list);
+		addCaptureMove( MOVE(from, to, cap, EMPTY, NOFLAG), list );
 	}
 }
 
-static void addBlackPawnMove(const int from, const int to, const int cap, moveList* list) {
+static void addBlackPawnMove( const int from, const int to, const int cap, moveList* list ) {
 	ASSERT(pieceValidEmpty(cap));
 	ASSERT(sqOnBoard(from));
 	ASSERT(sqOnBoard(to));
 
 	if (squareRanks[from] == RANK_2) {
-		addCaptureMove(MOVE(from, to, cap, q, NOFLAG), list);
-		addCaptureMove(MOVE(from, to, cap, n, NOFLAG), list);
-		addCaptureMove(MOVE(from, to, cap, r, NOFLAG), list);
-		addCaptureMove(MOVE(from, to, cap, b, NOFLAG), list);
+		addCaptureMove( MOVE(from, to, cap, q, NOFLAG), list );
+		addCaptureMove( MOVE(from, to, cap, n, NOFLAG), list );
+		addCaptureMove( MOVE(from, to, cap, r, NOFLAG), list );
+		addCaptureMove( MOVE(from, to, cap, b, NOFLAG), list );
 	}
 	else {
-		addCaptureMove(MOVE(from, to, cap, EMPTY, NOFLAG), list);
+		addCaptureMove( MOVE(from, to, cap, EMPTY, NOFLAG), list );
 	}
 }
 
@@ -86,27 +82,27 @@ void generateAllMoves(const position* pos, moveList* list) {
 			// nonCap moves
 			if (pos->pieces[sq + pawnRange] == EMPTY) {
 				// pawns move bitwise 10 forward as our board is 10 wide
-				addWhitePawnMove(sq, sq + pawnRange, EMPTY, list);
+				addWhitePawnMove(sq, sq + pawnRange, EMPTY, list );
 				if (squareRanks[sq] == RANK_2 && pos->pieces[sq + psRange] == EMPTY) {
 					// pawns can move two squares if they're on the second rank
-					addQuietMove(MOVE(sq, sq + psRange, EMPTY, NOPROM, mFlagPS), list);
+					addQuietMove( MOVE(sq, sq + psRange, EMPTY, NOPROM, mFlagPS), list );
 				}
 			}
 
 			// cap moves
 			if (sqOnBoard(sq + left) && pieceColours[pos->pieces[sq + left]] == BLACK) {
-				addWhitePawnMove(sq, sq + left, pos->pieces[sq + left], list);
+				addWhitePawnMove(sq, sq + left, pos->pieces[sq + left], list );
 			}
 			if (sqOnBoard(sq + right) && pieceColours[pos->pieces[sq + right]] == BLACK) {
-				addWhitePawnMove(sq, sq + right, pos->pieces[sq + right], list);
+				addWhitePawnMove(sq, sq + right, pos->pieces[sq + right], list );
 			}
 			// enPassent moves
 			if (pos->enPassentSquare != OFF_BOARD) {
 				if (sq + left == pos->enPassentSquare) {
-					addCaptureMove(MOVE(sq, sq + left, EMPTY, NOPROM, mFlagEP), list);
+					addCaptureMove( MOVE(sq, sq + left, EMPTY, NOPROM, mFlagEP), list );
 				}
 				if (sq + right == pos->enPassentSquare) {
-					addCaptureMove(MOVE(sq, sq + right, EMPTY, NOPROM, mFlagEP), list);
+					addCaptureMove( MOVE(sq, sq + right, EMPTY, NOPROM, mFlagEP), list );
 				}
 			}
 		}
@@ -115,7 +111,7 @@ void generateAllMoves(const position* pos, moveList* list) {
 		if (pos->castlePermission & WHITE_00) {
 			if (pos->pieces[F1] == EMPTY && pos->pieces[G1] == EMPTY) {
 				if (!isSquareAttacked(E1, BLACK, pos) && !isSquareAttacked(F1, BLACK, pos)) {
-					addQuietMove(MOVE(E1, G1, EMPTY, NOPROM, mFlagCstl), list);
+					addQuietMove( MOVE(E1, G1, EMPTY, NOPROM, mFlagCstl), list );
 				}
 			}
 		}
@@ -123,7 +119,7 @@ void generateAllMoves(const position* pos, moveList* list) {
 		if (pos->castlePermission & WHITE_000) {
 			if (pos->pieces[D1] == EMPTY && pos->pieces[C1] == EMPTY && pos->pieces[B1] == EMPTY) {
 				if (!isSquareAttacked(E1, BLACK, pos) && !isSquareAttacked(D1, BLACK, pos)) {
-					addQuietMove(MOVE(E1, C1, EMPTY, NOPROM, mFlagCstl), list);
+					addQuietMove( MOVE(E1, C1, EMPTY, NOPROM, mFlagCstl), list );
 				}
 			}
 		}
@@ -137,27 +133,27 @@ void generateAllMoves(const position* pos, moveList* list) {
 			// nonCap moves
 			if (pos->pieces[sq - pawnRange] == EMPTY) {
 				// pawns move bitwise 10 forward as our board is 10 wide
-				addBlackPawnMove(sq, sq - pawnRange, EMPTY, list);
+				addBlackPawnMove(sq, sq - pawnRange, EMPTY, list );
 				if (squareRanks[sq] == RANK_7 && pos->pieces[sq - psRange] == EMPTY) {
 					// pawns can move two squares if they're on the second rank
-					addQuietMove(MOVE(sq, sq - psRange, EMPTY, NOPROM, mFlagPS), list);
+					addQuietMove( MOVE(sq, sq - psRange, EMPTY, NOPROM, mFlagPS), list );
 				}
 			}
 
 			// cap moves
 			if (sqOnBoard(sq - left) && pieceColours[pos->pieces[sq - left]] == WHITE) {
-				addBlackPawnMove(sq, sq - left, pos->pieces[sq - left], list);
+				addBlackPawnMove(sq, sq - left, pos->pieces[sq - left], list );
 			}
 			if (sqOnBoard(sq - right) && pieceColours[pos->pieces[sq - right]] == WHITE) {
-				addBlackPawnMove(sq, sq - right, pos->pieces[sq - right], list);
+				addBlackPawnMove(sq, sq - right, pos->pieces[sq - right], list );
 			}
 			// enPassent moves
 			if (pos->enPassentSquare != OFF_BOARD) {
 				if (sq - left == pos->enPassentSquare) {
-					addCaptureMove(MOVE(sq, sq - left, EMPTY, NOPROM, mFlagEP), list);
+					addCaptureMove( MOVE(sq, sq - left, EMPTY, NOPROM, mFlagEP), list );
 				}
 				if (sq - right == pos->enPassentSquare) {
-					addCaptureMove(MOVE(sq, sq - right, EMPTY, NOPROM, mFlagEP), list);
+					addCaptureMove( MOVE(sq, sq - right, EMPTY, NOPROM, mFlagEP), list );
 				}
 			}
 		}
@@ -166,7 +162,7 @@ void generateAllMoves(const position* pos, moveList* list) {
 		if (pos->castlePermission &  BLACK_00) {
 			if (pos->pieces[F8] == EMPTY && pos->pieces[G8] == EMPTY) {
 				if (!isSquareAttacked(E8, WHITE, pos) && !isSquareAttacked(F8, WHITE, pos)) {
-					addQuietMove(MOVE(E8, G8, EMPTY, NOPROM, mFlagCstl), list);
+					addQuietMove( MOVE(E8, G8, EMPTY, NOPROM, mFlagCstl), list );
 				}
 			}
 		}
@@ -174,7 +170,7 @@ void generateAllMoves(const position* pos, moveList* list) {
 		if (pos->castlePermission &  BLACK_000) {
 			if (pos->pieces[D8] == EMPTY && pos->pieces[C8] == EMPTY && pos->pieces[B8] == EMPTY) {
 				if (!isSquareAttacked(E8, WHITE, pos) && !isSquareAttacked(D8, WHITE, pos)) {
-					addQuietMove(MOVE(E8, C8, EMPTY, NOPROM, mFlagCstl), list);
+					addQuietMove( MOVE(E8, C8, EMPTY, NOPROM, mFlagCstl), list );
 				}
 			}
 		}
@@ -200,13 +196,13 @@ void generateAllMoves(const position* pos, moveList* list) {
 					if (pos->pieces[t_sq] != EMPTY) {
 						// (side ^ 1) == opposite side
 						if (pieceColours[pos->pieces[t_sq]] == (side ^ 1)) {
-							addCaptureMove(MOVE(sq, t_sq, pos->pieces[t_sq], NOPROM, NOFLAG), list);
+							addCaptureMove( MOVE(sq, t_sq, pos->pieces[t_sq], NOPROM, NOFLAG), list );
 						}
 						// either the piece is of the same colour or its a capture which means
 						// its not a normal move
 						break;
 					}
-					addQuietMove(MOVE(sq, t_sq, EMPTY, NOPROM, NOFLAG), list);
+					addQuietMove( MOVE(sq, t_sq, EMPTY, NOPROM, NOFLAG), list );
 					t_sq += dir;
 				}
 			}
@@ -232,13 +228,13 @@ void generateAllMoves(const position* pos, moveList* list) {
 				if (pos->pieces[t_sq] != EMPTY) {
 					// (side ^ 1) == opposite side
 					if (pieceColours[pos->pieces[t_sq]] == (side ^ 1)) {
-						addCaptureMove(MOVE(sq, t_sq, pos->pieces[t_sq], NOPROM, NOFLAG), list);
+						addCaptureMove( MOVE(sq, t_sq, pos->pieces[t_sq], NOPROM, NOFLAG), list );
 					}
 					// either the piece is of the same colour or its a capture which means
 					// its not a normal move
 					continue;
 				}
-				addQuietMove(MOVE(sq, t_sq, EMPTY, NOPROM, NOFLAG), list);
+				addQuietMove( MOVE(sq, t_sq, EMPTY, NOPROM, NOFLAG), list );
 			}
 		}
 		// repeats the loop but this time with the king

@@ -16,6 +16,8 @@
 void printConvertArrays();
 void printMove(int move);
 
+// TODO perfting seems extremely slow, maybe there is indeed need to fix that
+
 int main()
 {
 	initAll();
@@ -23,14 +25,13 @@ int main()
 	moveList l;
 
 	blubb.parseFEN(START_FEN);
-
 	QWORD startingTime = _Query_perf_counter();
-	std::cout << perft(4, &blubb) << std::endl;
+	std::cout << perft(5, &blubb) << std::endl;
 	QWORD endingTime = _Query_perf_counter();
 
 
-	std::cout << "Time needed was: " << (endingTime - startingTime)*1000.0 / _Query_perf_frequency()
-		<< " milliseconds" << std::endl;
+	std::cout << "Time needed was: " << (endingTime - startingTime)*1.0 / _Query_perf_frequency()
+		<< " seconds" << std::endl;
 	_getch();
 }
 

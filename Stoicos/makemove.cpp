@@ -1,6 +1,6 @@
 #include "makemove.h"
 
-static void clearPiece( const int sq, position* pos ) {
+static void clearPiece(const int sq, position* pos) {
 	ASSERT(sqOnBoard(sq));
 
 	int piece = pos->pieces[sq];
@@ -21,10 +21,12 @@ static void clearPiece( const int sq, position* pos ) {
 		pos->officers[colour]--;
 		if (majPieces[piece] == true) {
 			pos->majors[colour]--;
-		} else {
+		}
+		else {
 			pos->minors[colour]--;
 		}
-	} else {
+	}
+	else {
 		CLRBIT(pos->pawns[colour], sq120to64[sq]);
 		CLRBIT(pos->pawns[BOTH], sq120to64[sq]);
 	}
@@ -41,7 +43,7 @@ static void clearPiece( const int sq, position* pos ) {
 	pos->pList[piece][t_pieceNum] = pos->pList[piece][pos->pieceNum[piece]];
 }
 
-static void addPiece( const int sq, position* pos, const int piece ) {
+static void addPiece(const int sq, position* pos, const int piece) {
 	// this whole function basically does the opposite of what clearPiece did
 	// so just check that commenting and apply the opposite
 
@@ -56,10 +58,12 @@ static void addPiece( const int sq, position* pos, const int piece ) {
 		pos->officers[colour]++;
 		if (majPieces[piece] == true) {
 			pos->majors[colour]++;
-		} else {
+		}
+		else {
 			pos->minors[colour]++;
 		}
-	} else {
+	}
+	else {
 		SETBIT(pos->pawns[colour], sq120to64[sq]);
 		SETBIT(pos->pawns[BOTH], sq120to64[sq]);
 	}
@@ -69,9 +73,9 @@ static void addPiece( const int sq, position* pos, const int piece ) {
 	pos->pList[piece][pos->pieceNum[piece]++] = sq;
 }
 
-static void movePiece( const int from, const int to, position* pos ) {
+static void movePiece(const int from, const int to, position* pos) {
 	ASSERT(sqOnBoard(from))
-	ASSERT(sqOnBoard(to));
+		ASSERT(sqOnBoard(to));
 	int piece = pos->pieces[from];
 	int colour = pieceColours[piece];
 
@@ -122,7 +126,6 @@ bool makeMove(const int move, position* pos) {
 	// does the move select a piece?
 	ASSERT(pieceValid(pos->pieces[from]));
 
-	pos->history.push_back(pastMoves{});
 	pos->history[hPly].positionKey = pos->positionKey;
 
 	// en passent captures don't capture the piece at which the enemy pawn is
@@ -130,22 +133,24 @@ bool makeMove(const int move, position* pos) {
 
 	if (move & mFlagEP) {
 		if (isWhite) {
-			clearPiece( to - 10, pos );
-		} else {
-			clearPiece( to + 10, pos );
+			clearPiece(to - 10, pos);
 		}
-	} else if (move & mFlagCstl) {
+		else {
+			clearPiece(to + 10, pos);
+		}
+	}
+	else if (move & mFlagCstl) {
 		// switches which rook has to move, as the king has obviously already moved
 		switch (to) {
-			case C1: movePiece( A1, D1, pos );
-				break;
-			case C8: movePiece( A8, D8, pos );
-				break;
-			case G1: movePiece( H1, F1, pos );
-				break;
-			case G8: movePiece( H8, F8, pos );
-				break;
-			default: ASSERT(false);
+		case C1: movePiece(A1, D1, pos);
+			break;
+		case C8: movePiece(A8, D8, pos);
+			break;
+		case G1: movePiece(H1, F1, pos);
+			break;
+		case G8: movePiece(H8, F8, pos);
+			break;
+		default: ASSERT(false);
 		}
 	}
 	// an en passent square only lasts for one move
@@ -175,7 +180,7 @@ bool makeMove(const int move, position* pos) {
 	pos->fiftyMoveCount++;
 	if (captured != EMPTY) {
 		ASSERT(pieceValid(captured));
-		clearPiece( to, pos );
+		clearPiece(to, pos);
 		pos->fiftyMoveCount = 0;
 	}
 	pos->historyPly++;
@@ -190,7 +195,8 @@ bool makeMove(const int move, position* pos) {
 				// in a pawnstart
 				pos->enPassentSquare = to - 10;
 				ASSERT(squareRanks[pos->enPassentSquare] == RANK_3);
-			} else {
+			}
+			else {
 				pos->enPassentSquare = to + 10;
 				ASSERT(squareRanks[pos->enPassentSquare] == RANK_6);
 			}
@@ -198,19 +204,19 @@ bool makeMove(const int move, position* pos) {
 		}
 	}
 
-	movePiece( from, to, pos );
+	movePiece(from, to, pos);
 
 	//deals with promotion
 	const int prom = PROMPIECE(move);
 	if (prom != NOPROM) {
 		ASSERT(pieceValid(prom));
 		ASSERT(!piecePawn[prom]);
-		clearPiece( to, pos );
-		addPiece( to, pos, prom );
+		clearPiece(to, pos);
+		addPiece(to, pos, prom);
 	}
 
 	// moves kingSquare if you moved a king
-	if (isKing( pos->pieces[to] )) {
+	if (isKing(pos->pieces[to])) {
 		pos->kingSquares[side] = to;
 	}
 
@@ -219,7 +225,7 @@ bool makeMove(const int move, position* pos) {
 	HASH_SIDE;
 
 	ASSERT(pos->checkBoard());
-	
+
 	// needs to be down here due to pinned pieces and other moves involving a piece other than the
 	// king that would still put him in check
 	if (isSquareAttacked(pos->kingSquares[side], pos->side, pos)) {
@@ -230,8 +236,8 @@ bool makeMove(const int move, position* pos) {
 	return true;
 }
 
-void takeMove( position* pos ) {
-	ASSERT(pos->checkBoard());	
+void takeMove(position* pos) {
+	ASSERT(pos->checkBoard());
 
 	pos->historyPly--;
 	pos->ply--;
@@ -263,44 +269,45 @@ void takeMove( position* pos ) {
 	// readds pawn in case of en passent move
 	if (move & mFlagEP) {
 		if (pos->side == WHITE) {
-			addPiece( to - 10, pos, p );
-		} else {
-			addPiece( to + 10, pos, P );
+			addPiece(to - 10, pos, p);
 		}
-	} else if (move & mFlagCstl) {
+		else {
+			addPiece(to + 10, pos, P);
+		}
+	}
+	else if (move & mFlagCstl) {
 		switch (to) {
-			case C1: movePiece(D1, A1, pos);
-				break;
-			case C8: movePiece(D8, A8, pos);
-				break;
-			case G1: movePiece(F1, H1, pos);
-				break;
-			case G8: movePiece(F8, H8, pos);
-				break;
-			default:
-				ASSERT(false);		
+		case C1: movePiece(D1, A1, pos);
+			break;
+		case C8: movePiece(D8, A8, pos);
+			break;
+		case G1: movePiece(F1, H1, pos);
+			break;
+		case G8: movePiece(F8, H8, pos);
+			break;
+		default:
+			ASSERT(false);
 		}
 	}
 	movePiece(to, from, pos);
-	if(isKing(pos->pieces[from])) {
+	if (isKing(pos->pieces[from])) {
 		pos->kingSquares[pos->side] = from;
 	}
 
 	// redoes capture in case there was one
 	int cap = CAPPIECE(move);
-	if(cap != EMPTY) {
+	if (cap != EMPTY) {
 		ASSERT(pieceValid(cap));
 		addPiece(to, pos, cap);
 	}
 
 	// redoes promotion, in case there was one
 	int prom = PROMPIECE(move);
-	if(prom != EMPTY) {
+	if (prom != EMPTY) {
 		ASSERT(pieceValid(prom));
 		ASSERT(!piecePawn[prom]);
 		clearPiece(from, pos);
 		addPiece(from, pos, (pieceColours[prom] == WHITE ? P : p));
 	}
 	ASSERT(pos->checkBoard());
-	pos->history.pop_back();
 }

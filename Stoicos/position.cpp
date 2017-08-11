@@ -208,8 +208,6 @@ void position::resetPosition()
 
 	this->castlePermission = 0;
 	this->positionKey = EMPTY_KEY;
-
-	this->history.clear();
 }
 
 void position::generateKey()

@@ -7,7 +7,7 @@
 
 #include "masks.h"
 
-#define DEBUG
+//#define DEBUG
 
 // selfmade Assert funciton for debugging
 #ifndef DEBUG
@@ -238,6 +238,9 @@ const int pieceColours[pieceTypes] = {
 	BLACK    // black King
 };
 
+
+
+
 const bool sliders[pieceTypes] = {
 	false,   // Empty
 	false,   // white Pawn
@@ -254,15 +257,31 @@ const bool sliders[pieceTypes] = {
 	false     // black King
 };
 
+const bool piecePawn[pieceTypes] = {
+	false,    // Empty
+	true,     // white Pawn
+	false,    // white Knight
+	false,    // white Bishop
+	false,    // white Rook
+	false,    // white Queen
+	false,    // white King
+	true,     // black Pawn
+	false,    // black Knight
+	false,    // black Bishop
+	false,    // black Rook
+	false,    // black Queen
+	false     // black King
+};
+
 const int directions[pieceTypes][maxDirections] = {
-	{   0,   0,   0,  0, 0,  0,  0,  0 }, // Empty
-	{   0,   0,   0,  0, 0,  0,  0,  0 }, // White Pawn
+	{ 0,   0,   0,  0, 0,  0,  0,  0 }, // Empty
+	{ 0,   0,   0,  0, 0,  0,  0,  0 }, // White Pawn
 	{ -21, -19, -12, -8, 8, 12, 19, 21 }, // White Knight
 	{ -11,  -9,   9, 11, 0,  0,  0,  0 }, // White Bishop
 	{ -10,  -1,   1, 10, 0,  0,  0,  0 }, // White Rook
 	{ -11, -10,  -9, -1, 1,  9, 10, 11 }, // White Queen
 	{ -11, -10,  -9, -1, 1,  9, 10, 11 }, // White King
-	{   0,   0,   0,  0, 0,  0,  0,  0 }, // Black Pawn
+	{ 0,   0,   0,  0, 0,  0,  0,  0 }, // Black Pawn
 	{ -21, -19, -12, -8, 8, 12, 19, 21 }, // Black Knight
 	{ -11,  -9,   9, 11, 0,  0,  0,  0 }, // Black Bishop
 	{ -10,  -1,   1, 10, 0,  0,  0,  0 }, // Black Rook
@@ -284,22 +303,6 @@ const int pieceDirections[pieceTypes] = {
 	4, // Black Rook
 	8, // Black Queen
 	8  // Black King
-};
-
-const bool piecePawn[pieceTypes] = {
-	false,    // Empty
-	true,     // white Pawn
-	false,    // white Knight
-	false,    // white Bishop
-	false,    // white Rook
-	false,    // white Queen
-	false,    // white King
-	true,     // black Pawn
-	false,    // black Knight
-	false,    // black Bishop
-	false,    // black Rook
-	false,    // black Queen
-	false     // black King
 };
 
 extern int squareFiles[amountSquares];

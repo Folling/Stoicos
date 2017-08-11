@@ -1,16 +1,9 @@
-﻿  main.cpp
+﻿  movegen.cpp
   Generating Code...
   Compiling...
-  position.cpp
   perft.cpp
-c:\users\folling\documents\visual studio 2017\projects\stoicos\stoicos\perft.cpp(16): warning C4244: '+=': conversion from 'QWORD' to 'int', possible loss of data
-  movegen.cpp
-  move.cpp
-  makemove.cpp
-  init.cpp
-  convert.cpp
-  bitboard.cpp
-  attack.cpp
+c:\users\folling\documents\visual studio 2017\projects\stoicos\stoicos\perft.cpp(15): warning C4244: '+=': conversion from 'QWORD' to 'int', possible loss of data
+  main.cpp
   Generating Code...
   Stoicos.vcxproj -> C:\Users\Folling\documents\visual studio 2017\Projects\Stoicos\Debug\Stoicos.exe
   Stoicos.vcxproj -> C:\Users\Folling\documents\visual studio 2017\Projects\Stoicos\Debug\Stoicos.pdb (Partial PDB)

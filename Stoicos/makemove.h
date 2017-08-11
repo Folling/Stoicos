@@ -4,6 +4,7 @@
 #include "constants.h"
 #include "position.h"
 #include "validate.h"
+#include "move.h"
 
 // to change the posKey depending on what happens
 // assumes that the position pointer will ALWAYS be called "pos"
@@ -31,11 +32,16 @@ const int castlePerm[amountSquares] = {
 	15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
 	15,  7, 15, 15, 15,  3, 15, 15, 11, 15,
 	15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
-	15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+	15, 15, 15, 15, 15, 15, 15, 15, 15, 15
 };
 
 static void clearPiece(const int sq, position* pos);
 static void addPiece(const int sq, position* pos, const int piece);
+
 static void movePiece(const int from, const int to, position* pos);
+
+bool makeMove(const int move, position* pos);
+
+void takeMove(position* pos);
 
 #endif

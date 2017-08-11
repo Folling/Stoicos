@@ -42,6 +42,9 @@
     <ClCompile Include="makemove.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="perft.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h">
@@ -75,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="makemove.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="perft.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

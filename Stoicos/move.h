@@ -33,7 +33,7 @@
 #define CAPPIECE(m)   (m>>14 & 0xF)
 #define ENPAS(m)      (m & mFlagEP)
 #define PAWNSTART(m)  (m & mFlagPS)
-#define PROMPIECE(m)  (m>>20 & 0xF)
+#define PROMPIECE(m)  ((m>>20) & 0xF)
 #define CASTLING(m)   (m & mFlagCstl)
 
 // specifies the specifics of a move in a macro, could do this in a "makeMove(f,t,ca,pro,fl)" function but meh

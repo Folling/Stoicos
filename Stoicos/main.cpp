@@ -10,6 +10,8 @@
 #include "move.h"
 #include "attack.h"
 #include "init.h"
+#include "makemove.h"
+#include "perft.h"
 
 void printConvertArrays();
 void printMove(int move);
@@ -20,20 +22,14 @@ int main()
 	position blubb;
 	moveList l;
 
-	QWORD startingTime = _Query_perf_counter();
-	blubb.parseFEN("r1b2rk1/pp3ppp/2nqpn2/8/3P4/P2BBN2/1P3PPP/2RQK2R b K - 0 1");
-	blubb.resetPosition();
 	blubb.parseFEN(START_FEN);
-	blubb.checkBoard();
-	blubb.printPosition();
-	_getch();
 
-	generateAllMoves(&blubb, &l);
-	printMoveList(&l);
-
+	QWORD startingTime = _Query_perf_counter();
+	std::cout << perft(4, &blubb) << std::endl;
 	QWORD endingTime = _Query_perf_counter();
 
-	std::cout << "Time needed was: " << QWORD((endingTime - startingTime)*1000.0 / _Query_perf_frequency())
+
+	std::cout << "Time needed was: " << (endingTime - startingTime)*1000.0 / _Query_perf_frequency()
 		<< " milliseconds" << std::endl;
 	_getch();
 }

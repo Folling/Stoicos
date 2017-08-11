@@ -18,7 +18,6 @@ int squareRanks[amountSquares];
 
 void initAll()
 {
-	//mainGame.history.push_back(startingPosition);
 	init120to64();
 	initMasks();
 	initHashkeys();

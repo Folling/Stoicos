@@ -5,12 +5,12 @@
 
 inline bool sqOnBoard(const int sq)
 {
-	return squareFiles[sq] != OFF_BOARD ? 1 : 0;
+	return squareFiles[sq] != OFF_BOARD ? true : false;
 }
 
 inline bool validSide(const int side)
 {
-	return (side == WHITE || side == BLACK) ? 1 : 0;
+	return (side == WHITE || side == BLACK) ? true : false;
 }
 
 inline bool fileRankValid(const int fr)
@@ -20,12 +20,12 @@ inline bool fileRankValid(const int fr)
 
 inline bool pieceValid(const int piece)
 {
-	return (piece > EMPTY && piece <= k) ? 1 : 0;
+	return (piece > EMPTY && piece <= k) ? true : false;
 }
 
 inline bool pieceValidEmpty(const int piece)
 {
-	return (piece >= EMPTY && piece <= k) ? 1 : 0;
+	return (piece >= EMPTY && piece <= k) ? true : false;
 }
 
 #endif

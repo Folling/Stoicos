@@ -5,6 +5,8 @@
 #include "validate.h"
 #include "move.h"
 
+#define PRINTSQ(sq) (std::cout <<  fileChars[squareFiles[sq]] << rankChars[squareRanks[sq]])
+
 struct moveList
 {
 	std::vector<move> moves;
@@ -18,7 +20,6 @@ static void addBlackPawnMove(const int from, const int to, const int cap, moveLi
 
 static void addQuietMove(int mInf, moveList* list);
 static void addCaptureMove(int mInf, moveList* list);
-static void addEnPassentMove(int mInf, moveList* list);
 
 void generateAllMoves(const position* pos, moveList* list);
 

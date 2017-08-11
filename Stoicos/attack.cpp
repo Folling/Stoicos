@@ -2,25 +2,25 @@
 
 bool isBishopOrQueen(int piece) 
 {
-	if (piece != B && piece != b && piece != Q && piece != q) return false;
+	if (piece != B && piece != b && piece != Q && piece != q || piece == OFF_BOARD) return false;
 	return true;
 }
 
 bool isRookOrQueen(int piece)
 {
-	if (piece != R && piece != r && piece != Q && piece != q) return false;
+	if (piece != R && piece != r && piece != Q && piece != q || piece == OFF_BOARD) return false;
 	return true;
 }
 
 bool isKnight(int piece)
 {
-	if (piece != N && piece != n) return false;
+	if (piece != N && piece != n || piece == OFF_BOARD) return false;
 	return true;
 }
 
 bool isKing(int piece)
 {
-	if (piece != K && piece != k) return false;
+	if (piece != K && piece != k || piece == OFF_BOARD) return false;
 	return true;
 }
 

@@ -286,6 +286,22 @@ const int pieceDirections[pieceTypes] = {
 	8  // Black King
 };
 
+const bool piecePawn[pieceTypes] = {
+	false,    // Empty
+	true,     // white Pawn
+	false,    // white Knight
+	false,    // white Bishop
+	false,    // white Rook
+	false,    // white Queen
+	false,    // white King
+	true,     // black Pawn
+	false,    // black Knight
+	false,    // black Bishop
+	false,    // black Rook
+	false,    // black Queen
+	false     // black King
+};
+
 extern int squareFiles[amountSquares];
 extern int squareRanks[amountSquares];
 
